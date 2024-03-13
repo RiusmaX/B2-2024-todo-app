@@ -1,7 +1,7 @@
 import './App.css'
 import TodoList from './components/TodoList'
 import { useEffect, useState } from 'react'
-import { addTodo, getTodos } from './services/Api'
+import { addTodo, deleteTodo, getTodos, updateTodo } from './services/Api'
 import AddTodo from './components/AddTodo'
 
 function App () {
@@ -17,13 +17,26 @@ function App () {
   }, [])
 
   const handleAddTodo = async (todo) => {
-    await addTodo(todo)
+    const todosData = await addTodo(todo)
+    setTodos(todosData)
+  }
+
+  const handleDeleteTodo = async (id) => {
+    const todosData = await deleteTodo(id)
+    setTodos(todosData)
+  }
+
+  const handleUpdateTodo = async (todo) => {
+    const todosData = await updateTodo(todo)
+    setTodos(todosData)
   }
 
   return (
     <>
       <TodoList
         todos={todos}
+        onUpdate={handleUpdateTodo}
+        onDelete={handleDeleteTodo}
       />
       <AddTodo
         onAddTodo={handleAddTodo}

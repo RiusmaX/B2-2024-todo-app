@@ -1,7 +1,20 @@
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react'
+import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react'
 import TodoForm from './TodoForm'
 
-function AddTodoModal ({ isOpen, onOpen, onOpenChange, onAddTodo }) {
+function AddTodoModal ({ todoToEdit, isOpen, onOpen, onOpenChange, onAddTodo, onUpdateTodo }) {
+  const handleSubmit = (formData, id = null) => {
+    if (id) {
+      // C'est une modification
+      onUpdateTodo({
+        ...formData,
+        _id: id
+      })
+    } else {
+      // C'est un ajout
+      onAddTodo(formData)
+    }
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -12,18 +25,10 @@ function AddTodoModal ({ isOpen, onOpen, onOpenChange, onAddTodo }) {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className='flex flex-col gap-1'>Ajouter une tâche</ModalHeader>
+            <ModalHeader className='flex flex-col gap-1'>{todoToEdit ? 'Modifier' : 'Ajouter'} une tâche</ModalHeader>
             <ModalBody>
-              <TodoForm onSubmit={onAddTodo} />
+              <TodoForm onSubmit={handleSubmit} todoToEdit={todoToEdit} onClose={onClose} />
             </ModalBody>
-            <ModalFooter>
-              <Button color='danger' variant='light' onPress={onClose}>
-                Fermer
-              </Button>
-              <Button color='primary' onPress={onClose}>
-                Ajouter
-              </Button>
-            </ModalFooter>
           </>
         )}
       </ModalContent>
