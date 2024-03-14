@@ -1,17 +1,20 @@
 import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/react'
 import TodoForm from './TodoForm'
+import { useTodos } from '../hooks/todosHooks'
 
-function AddTodoModal ({ todoToEdit, isOpen, onOpen, onOpenChange, onAddTodo, onUpdateTodo }) {
+function AddTodoModal ({ todoToEdit, isOpen, onOpen, onOpenChange }) {
+  const { addTodo, updateTodo } = useTodos()
+
   const handleSubmit = (formData, id = null) => {
     if (id) {
       // C'est une modification
-      onUpdateTodo({
+      updateTodo({
         ...formData,
         _id: id
       })
     } else {
       // C'est un ajout
-      onAddTodo(formData)
+      addTodo(formData)
     }
   }
 

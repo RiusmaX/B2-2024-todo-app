@@ -1,8 +1,10 @@
 import { Button, Card, CardHeader, Image } from '@nextui-org/react'
 import { FaPenAlt, FaTrashAlt } from 'react-icons/fa'
+import { useTodos } from '../hooks/todosHooks'
 
-function Todo ({ onDelete, openEditModal, todo }) {
+function Todo ({ openEditModal, todo }) {
   const { title, description, _id } = todo
+  const { deleteTodo } = useTodos()
   return (
     <Card>
       <CardHeader className='flex gap-3'>
@@ -21,7 +23,7 @@ function Todo ({ onDelete, openEditModal, todo }) {
           <Button
             variant='light'
             isIconOnly
-            onPress={() => onDelete(_id)}
+            onPress={() => deleteTodo(_id)}
           >
             <FaTrashAlt color='red' />
           </Button>

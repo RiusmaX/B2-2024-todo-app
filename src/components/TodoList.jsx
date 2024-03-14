@@ -3,7 +3,7 @@ import Todo from './Todo'
 import { useDisclosure } from '@nextui-org/react'
 import AddTodoModal from './AddTodoModal'
 
-function TodoList ({ todos, onUpdate, onDelete }) {
+function TodoList ({ todos }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [todoToEdit, setTodoToEdit] = useState()
 
@@ -21,7 +21,6 @@ function TodoList ({ todos, onUpdate, onDelete }) {
               <Todo
                 key={todo._id}
                 todo={todo}
-                onDelete={onDelete}
                 openEditModal={handleOpenEditModal}
               />
             )
@@ -32,7 +31,6 @@ function TodoList ({ todos, onUpdate, onDelete }) {
         isOpen={isOpen}
         onOpen={onOpen}
         onOpenChange={onOpenChange}
-        onUpdateTodo={onUpdate}
         todoToEdit={todoToEdit}
       />
     </>
