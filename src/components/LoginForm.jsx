@@ -8,7 +8,7 @@ function LoginForm () {
     password: '123456789'
   })
 
-  const { login, authData, logout } = useAuth()
+  const { login } = useAuth()
 
   const handleChange = (event) => {
     setFormData({
